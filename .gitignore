@@ -1,3 +1,15 @@
 # Environment variables
 .env
 .env.*
+
+# Configuration
+config.py
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.idea/
+.vscode/

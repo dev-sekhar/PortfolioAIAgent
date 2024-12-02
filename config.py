@@ -1,10 +1,33 @@
+from dotenv import load_dotenv
+import os
+import logging
+
+# Load environment variables
+load_dotenv()
+
+# Logging Configuration
+LOG_CONFIG = {
+    'level': os.getenv('LOG_LEVEL', 'INFO').upper(),  # Default to INFO if not set
+    'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    'date_format': '%Y-%m-%d %H:%M:%S'
+}
+
+# Logging level mapping
+LOG_LEVELS = {
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL
+}
+
 # Price Source Configuration
 PRICE_SOURCES = {
     'yahoo_finance': {
         'enabled': True,
-        'priority': 1,  # Lower number = higher priority
+        'priority': 1,
         'retry_count': 3,
-        'retry_delay': 1  # seconds
+        'retry_delay': 1
     },
     'google_finance': {
         'enabled': True,
@@ -16,30 +39,30 @@ PRICE_SOURCES = {
 
 # Feature Flags
 FEATURE_FLAGS = {
-    'enable_fallback_sources': True,  # Enable/disable fallback to secondary sources
-    'validate_prices': True,          # Enable/disable price validation
-    'enable_email_notifications': False  # Disabled by default
+    'enable_fallback_sources': True,
+    'validate_prices': True,
+    'enable_email_notifications': False
 }
 
 # Price Validation Settings
 PRICE_VALIDATION = {
     'min_price': 0,
-    'max_price': 1000000,  # Adjust as needed
+    'max_price': 1000000,
 }
 
-# Email Configuration (only used if notifications are enabled)
+# Email Configuration
 EMAIL_CONFIG = {
     'smtp_server': 'smtp.gmail.com',
     'smtp_port': 587,
-    'sender_email': 'your_email@gmail.com',
-    'sender_password': 'your_16_digit_app_password',
-    'recipient_email': 'recipient@gmail.com'
+    'sender_email': os.getenv('SENDER_EMAIL'),
+    'sender_password': os.getenv('EMAIL_PASSWORD'),
+    'recipient_email': os.getenv('RECIPIENT_EMAIL')
 }
 
 # Database Configuration
 DB_CONFIG = {
-    'user': 'root',
-    'password': 'root',
-    'host': 'localhost',
-    'database': 'portflionew'
-} 
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'host': os.getenv('DB_HOST'),
+    'database': os.getenv('DB_NAME')
+}
