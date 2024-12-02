@@ -1,23 +1,32 @@
 from agents.portfolio_valuator import PortfolioValuator
-
+from agents.performance_calculator import PerformanceCalculator
+from agents.notification_sender import NotificationSender
+import argparse
 
 def main():
-    try:
-        # Initialize portfolio valuator
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Portfolio Analysis Tools')
+    parser.add_argument('--owner', type=str, required=True, 
+                       help='Owner name for analysis')
+    parser.add_argument('--action', type=str, choices=['value', 'performance', 'both'],
+                       default='both', help='Type of analysis to perform')
+
+    args = parser.parse_args()
+
+    if args.action in ['value', 'both']:
+        # Calculate portfolio value
         valuator = PortfolioValuator()
-        
-        # Calculate and update portfolio values
-        valuator.calculate_portfolio_value()
-        
-        # Optionally, show valuation history
-        history = valuator.get_valuation_history(days=7)
-        if not history.empty:
-            print("\n📈 Recent Valuation History:")
-            print(history.to_string())
+        portfolio_values = valuator.calculate_portfolio_value(args.owner)
 
-    except Exception as e:
-        print(f"❌ Error in main: {str(e)}")
-
+    if args.action in ['performance', 'both']:
+        # Calculate performance
+        calculator = PerformanceCalculator()
+        performance_data = calculator.calculate_performance_for_owner(args.owner)
+        
+        # Send notification if performance was calculated
+        if performance_data is not None:
+            notifier = NotificationSender()
+            notifier.send_email_notification(performance_data)
 
 if __name__ == "__main__":
     main()
