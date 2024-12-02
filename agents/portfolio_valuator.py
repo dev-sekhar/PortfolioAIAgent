@@ -2,7 +2,7 @@ from datetime import datetime
 import pandas as pd
 from agents.portfolio_fetcher import PortfolioFetcher
 from agents.price_fetcher import PriceFetcher
-from utils.logger import setup_logger
+from agents.logger import setup_logger
 from sqlalchemy import text
 
 

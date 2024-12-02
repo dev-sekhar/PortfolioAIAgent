@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime, date
 from agents.portfolio_fetcher import PortfolioFetcher
 from agents.price_fetcher import PriceFetcher
-from utils.logger import setup_logger
+from agents.logger import setup_logger
 
 
 class PerformanceCalculator:

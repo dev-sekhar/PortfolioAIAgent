@@ -5,7 +5,7 @@ import time
 from config import PRICE_SOURCES, FEATURE_FLAGS, PRICE_VALIDATION, DB_CONFIG
 from datetime import datetime
 from sqlalchemy import create_engine, text
-from utils.logger import setup_logger
+from agents.logger import setup_logger
 
 class PriceFetcher:
     def __init__(self):

@@ -5,6 +5,7 @@ from agents.notification_sender import NotificationSender
 from config import FEATURE_FLAGS
 from datetime import date, datetime
 import pandas as pd
+from agents.logger import setup_logger
 
 
 class PortfolioManager:
